@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Requests</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap for additional UI components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <div class="header">
+        <div class="header-left">
+            <i class="fas fa-arrow-left header-icon" title="Back"></i>
+            <i class="fas fa-heart header-icon" title="Favorites"></i>
+            <i class="fas fa-home header-icon" title="Home"></i>
+        </div>
+        <div class="header-right">
+            <i class="fas fa-home header-icon" title="Home"></i>
+            <i class="fas fa-bars header-icon" title="Menu"></i>
+            <i class="fas fa-question-circle header-icon" title="Help"></i>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Page Title Section -->
+        <div class="page-title">
+            <h2>Change Requests</h2>
+            <div>
+                <a href="#" id="newWindowLink">New Window</a> | <a href="#" id="personalizeLink">Personalize Page</a>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <div class="tab-item active" data-tab="tasks">Tasks</div>
+            <div class="tab-item" data-tab="objects">Objects</div>
+            <div class="tab-item" data-tab="migrations">Migrations</div>
+            <div class="tab-item" data-tab="migration-notes">Migration Notes</div>
+            <div class="tab-item" data-tab="scripts">Scripts</div>
+            <div class="tab-item" data-tab="forms">Forms</div>
+            <div class="tab-item" data-tab="issues">Issues</div>
+        </div>
+
+        <!-- Change Request Details Section -->
+        <div class="cr-details">
+            <div class="cr-info">
+                <strong>CR Number:</strong> HCM-0007334
+            </div>
+            <div class="cr-actions">
+                <button type="button" class="btn-action" id="cancelBtn">Cancel</button>
+                <button type="button" class="btn-action" id="holdBtn">Hold</button>
+                <button type="button" class="btn-action btn-complete" id="completeBtn">Complete</button>
+                <div class="action-icons">
+                    <i class="fas fa-star action-icon" title="Favorite"></i>
+                    <i class="fas fa-sync-alt action-icon" title="Refresh"></i>
+                    <i class="fas fa-link action-icon" title="Link"></i>
+                    <i class="fas fa-paperclip action-icon" title="Attach"></i>
+                    <i class="fas fa-list action-icon" title="List"></i>
+                    <i class="fas fa-print action-icon" title="Print"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Table Container -->
+        <div class="task-table-container">
+            <div class="task-sub-tabs">
+                <div class="task-sub-tab-item active" data-subtab="completion">Completion Details</div>
+                <div class="task-sub-tab-item" data-subtab="hours">Hours</div>
+            </div>
+
+            <div class="table-wrapper">
+                <table id="taskTable">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-col">
+                                <input type="checkbox" id="selectAll">
+                            </th>
+                            <th class="status-col">
+                                <i class="fas fa-circle status-header-icon"></i>
+                            </th>
+                            <th>Step</th>
+                            <th>Task Step Name</th>
+                            <th class="complete-col">Complete</th>
+                            <th>Assigned To</th>
+                            <th>Assigned To Name</th>
+                            <th>Source DB</th>
+                            <th>Target DB</th>
+                            <th>Task Type</th>
+                            <th class="action-col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="task-row" data-task-id="1" data-status="pending">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="fas fa-circle task-status-icon status-blue" title="In Progress"></i></td>
+                            <td>1</td>
+                            <td>Add Objects to CR</td>
+                            <td></td>
+                            <td>IP_PHI_PS_AMP_DEVELOPER</td>
+                            <td>IPPS-A R3 AMP PS Developer</td>
+                            <td></td>
+                            <td></td>
+                            <td>Developer Task</td>
+                            <td><button class="btn-task-complete" data-task-id="1">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="2" data-status="pending">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="fas fa-circle task-status-icon status-blue" title="In Progress"></i></td>
+                            <td>2</td>
+                            <td>Add Migration Notes</td>
+                            <td></td>
+                            <td>IP_PHI_PS_AMP_DEVELOPER</td>
+                            <td>IPPS-A R3 AMP PS Developer</td>
+                            <td></td>
+                            <td></td>
+                            <td>Developer Task</td>
+                            <td><button class="btn-task-complete" data-task-id="2">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="3" data-status="pending">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="fas fa-circle task-status-icon status-blue" title="In Progress"></i></td>
+                            <td>3</td>
+                            <td>Create Migration Set</td>
+                            <td></td>
+                            <td>IP_PHI_PS_AMP_DEVELOPER</td>
+                            <td>IPPS-A R3 AMP PS Developer</td>
+                            <td></td>
+                            <td></td>
+                            <td>Developer Task</td>
+                            <td><button class="btn-task-complete" data-task-id="3">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="4" data-status="pending">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="fas fa-circle task-status-icon status-blue" title="In Progress"></i></td>
+                            <td>4</td>
+                            <td>Add PRE REQ to CR</td>
+                            <td></td>
+                            <td>IP_PHI_PS_AMP_DEVELOPER</td>
+                            <td>IPPS-A R3 AMP PS Developer</td>
+                            <td></td>
+                            <td></td>
+                            <td>Developer Task</td>
+                            <td><button class="btn-task-complete" data-task-id="4">Complete</button></td>
+                        </tr>
+                        <tr class="task-row highlighted" data-task-id="5" data-status="current">
+                            <td><input type="checkbox" class="task-checkbox" checked></td>
+                            <td><i class="fas fa-circle task-status-icon status-blue" title="Current Task"></i></td>
+                            <td>5</td>
+                            <td>Migrate to DEV</td>
+                            <td></td>
+                            <td>IP_PHI_PS_AMP_DEVELOPER</td>
+                            <td>IPPS-A R3 AMP PS Developer</td>
+                            <td></td>
+                            <td></td>
+                            <td>Developer Task</td>
+                            <td><button class="btn-task-complete" data-task-id="5">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="6" data-status="next">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="fas fa-exclamation-triangle task-status-icon status-warning" title="Next Task"></i></td>
+                            <td>6</td>
+                            <td>Migrate to FUT</td>
+                            <td><button class="btn-complete-inline">Complete</button></td>
+                            <td>IP_PHI_PS_AMP_DEVELOPER</td>
+                            <td>IPPS-A R3 AMP PS Developer</td>
+                            <td></td>
+                            <td>HCM R3 FUT ZONE A</td>
+                            <td>Developer Task</td>
+                            <td><button class="btn-task-complete" data-task-id="6">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="7" data-status="not-started">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="far fa-circle task-status-icon status-empty" title="Not Started"></i></td>
+                            <td>7</td>
+                            <td>Validate FUT</td>
+                            <td></td>
+                            <td>IP_PHI_PS_AMP_DEVELOPER</td>
+                            <td>IPPS-A R3 AMP PS Developer</td>
+                            <td></td>
+                            <td></td>
+                            <td>Developer Task</td>
+                            <td><button class="btn-task-complete" data-task-id="7">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="8" data-status="not-started">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="far fa-circle task-status-icon status-empty" title="Not Started"></i></td>
+                            <td>8</td>
+                            <td>Peer Review</td>
+                            <td></td>
+                            <td>IP_PHI_PS_AMP_DEVELOPER</td>
+                            <td>IPPS-A R3 AMP PS Developer</td>
+                            <td></td>
+                            <td></td>
+                            <td>Developer Task</td>
+                            <td><button class="btn-task-complete" data-task-id="8">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="9" data-status="not-started">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="far fa-circle task-status-icon status-empty" title="Not Started"></i></td>
+                            <td>9</td>
+                            <td>Dev Lead Approval</td>
+                            <td></td>
+                            <td>IP_PHI_PS_AMP_DEV_LEAD</td>
+                            <td>IPPS-A R3 AMP PS Dev Lead</td>
+                            <td></td>
+                            <td></td>
+                            <td>Development Lead Task</td>
+                            <td><button class="btn-task-complete" data-task-id="9">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="10" data-status="not-started">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="far fa-circle task-status-icon status-empty" title="Not Started"></i></td>
+                            <td>10</td>
+                            <td>Approve to PLT</td>
+                            <td></td>
+                            <td>IP_PHI_PS_R3_TEST_LEAD</td>
+                            <td>IPPS-A PeopleSoft R3 Test Lead</td>
+                            <td></td>
+                            <td></td>
+                            <td>Test Lead Task</td>
+                            <td><button class="btn-task-complete" data-task-id="10">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="11" data-status="not-started">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="far fa-circle task-status-icon status-empty" title="Not Started"></i></td>
+                            <td>11</td>
+                            <td>Migrate to PLT</td>
+                            <td></td>
+                            <td>IP_PHI_PS_R3_TEST_LEAD</td>
+                            <td>IPPS-A PeopleSoft R3 Test Lead</td>
+                            <td></td>
+                            <td class="invalid-value">(Invalid Value)</td>
+                            <td>Test Lead Task</td>
+                            <td><button class="btn-task-complete" data-task-id="11">Complete</button></td>
+                        </tr>
+                        <tr class="task-row" data-task-id="12" data-status="not-started">
+                            <td><input type="checkbox" class="task-checkbox"></td>
+                            <td><i class="far fa-circle task-status-icon status-empty" title="Not Started"></i></td>
+                            <td>12</td>
+                            <td>Migrate to IT TEST</td>
+                            <td></td>
+                            <td>IP_PHI_PS_R3_TEST_LEAD</td>
+                            <td>IPPS-A PeopleSoft R3 Test Lead</td>
+                            <td></td>
+                            <td>HCM R3 IT TEST</td>
+                            <td>Test Lead Task</td>
+                            <td><button class="btn-task-complete" data-task-id="12">Complete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Update Modal -->
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statusModalLabel">Update Task Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="statusMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
