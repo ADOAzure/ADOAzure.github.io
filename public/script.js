@@ -25,10 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
     currentRow.dataset.status = "complete";
 
     // Save completed tasks
-    localStorage.setItem("completedTasks", JSON.stringify(
-      [...document.querySelectorAll('.task-row[data-status="complete"]')]
-        .map(row => row.dataset.taskId)
-    ));
+    const completed = [...document.querySelectorAll('.task-row[data-status="complete"]')]
+      .map(row => row.dataset.taskId);
+  
+    fetch('https://adoazure-github-io.onrender.com/api/active-task', {   
+
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ activeTaskId: nextRow?.dataset.taskId || "", completed })
+    });
+
 
     // Promote next
     const allRows = Array.from(document.querySelectorAll(".task-row"));
@@ -56,8 +62,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function restoreState() {
-    const completed = JSON.parse(localStorage.getItem("completedTasks") || "[]");
-    const active = localStorage.getItem("activeTaskId");
+    let completed = [];
+    let active = null;
+    
+    await Promise.all([
+      fetch('https://adoazure-github-io.onrender.com/api/completed-tasks')
+        .then(res => res.json())
+        .then(data => completed = data.completed),
+    
+      fetch('https://adoazure-github-io.onrender.com/api/active-task')
+        .then(res => res.json())
+        .then(data => active = data.activeTaskId)
+    ]);
+
 
     const allRows = document.querySelectorAll(".task-row");
     allRows.forEach(row => {
@@ -84,8 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetBtn = document.getElementById("resetProgressBtn");
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
-      localStorage.removeItem("completedTasks");
-      localStorage.removeItem("activeTaskId");
+      fetch('https://adoazure-github-io.onrender.com/api/reset', {
+        method: 'POST'
+      });
 
       const allRows = document.querySelectorAll(".task-row");
       allRows.forEach((row, index) => {
