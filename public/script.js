@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const completeBtn = document.getElementById("globalCompleteBtn");
 
   function updateActiveButtonPosition() {
@@ -24,16 +24,29 @@ document.addEventListener("DOMContentLoaded", () => {
     icon.className = "fas fa-check-circle status-blue";
     currentRow.dataset.status = "complete";
 
-    // Save completed tasks
+    // // Save completed tasks
+    // const completed = [...document.querySelectorAll('.task-row[data-status="complete"]')]
+    //   .map(row => row.dataset.taskId);
+  
+    // fetch('https://adoazure-github-io.onrender.com/api/active-task', {   
+
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ activeTaskId: nextRow?.dataset.taskId || "", completed })
+    // });
+
     const completed = [...document.querySelectorAll('.task-row[data-status="complete"]')]
       .map(row => row.dataset.taskId);
-  
-    fetch('https://adoazure-github-io.onrender.com/api/active-task', {   
 
+    fetch('https://adoazure-github-io.onrender.com/api/active-task', {   
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ activeTaskId: nextRow?.dataset.taskId || "", completed })
+      body: JSON.stringify({
+        activeTaskId: nextRow ? nextRow.dataset.taskId : "",
+        completed
+      })
     });
+
 
 
     // Promote next
@@ -61,20 +74,55 @@ document.addEventListener("DOMContentLoaded", () => {
     updateActiveButtonPosition();
   });
 
-  function restoreState() {
+  // function restoreState() {
+  //   let completed = [];
+  //   let active = null;
+    
+  //   await Promise.all([
+  //     fetch('https://adoazure-github-io.onrender.com/api/completed-tasks')
+  //       .then(res => res.json())
+  //       .then(data => completed = data.completed),
+    
+  //     fetch('https://adoazure-github-io.onrender.com/api/active-task')
+  //       .then(res => res.json())
+  //       .then(data => active = data.activeTaskId)
+  //   ]);
+
+
+  //   const allRows = document.querySelectorAll(".task-row");
+  //   allRows.forEach(row => {
+  //     const icon = row.children[1].querySelector("i");
+  //     const taskId = row.dataset.taskId;
+
+  //     if (completed.includes(taskId)) {
+  //       row.dataset.status = "complete";
+  //       icon.className = "fas fa-check-circle status-blue";
+  //     } else if (taskId === active) {
+  //       row.dataset.status = "active";
+  //       icon.className = "fas fa-arrow-right status-green";
+  //     } else {
+  //       row.dataset.status = "pending";
+  //       icon.className = "fas fa-circle status-grey";
+  //     }
+  //   });
+
+  //   updateActiveButtonPosition();
+  // }
+
+    async function restoreState() {
     let completed = [];
     let active = null;
-    
-    await Promise.all([
-      fetch('https://adoazure-github-io.onrender.com/api/completed-tasks')
-        .then(res => res.json())
-        .then(data => completed = data.completed),
-    
-      fetch('https://adoazure-github-io.onrender.com/api/active-task')
-        .then(res => res.json())
-        .then(data => active = data.activeTaskId)
-    ]);
 
+    try {
+      const [completedRes, activeRes] = await Promise.all([
+        fetch('https://adoazure-github-io.onrender.com/api/completed-tasks').then(r => r.json()),
+        fetch('https://adoazure-github-io.onrender.com/api/active-task').then(r => r.json())
+      ]);
+      completed = completedRes.completed;
+      active = activeRes.activeTaskId;
+    } catch (e) {
+      console.error("Failed to restore state from API", e);
+    }
 
     const allRows = document.querySelectorAll(".task-row");
     allRows.forEach(row => {
@@ -95,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateActiveButtonPosition();
   }
+
 
   restoreState();
 
