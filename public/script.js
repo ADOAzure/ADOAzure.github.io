@@ -35,17 +35,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     //   body: JSON.stringify({ activeTaskId: nextRow?.dataset.taskId || "", completed })
     // });
 
-    const completed = [...document.querySelectorAll('.task-row[data-status="complete"]')]
-      .map(row => row.dataset.taskId);
+    // const completed = [...document.querySelectorAll('.task-row[data-status="complete"]')]
+    //   .map(row => row.dataset.taskId);
 
-    fetch('https://adoazure-github-io.onrender.com/api/active-task', {   
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        activeTaskId: nextRow ? nextRow.dataset.taskId : "",
-        completed
-      })
-    });
+    // fetch('https://adoazure-github-io.onrender.com/api/active-task', {   
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     activeTaskId: nextRow ? nextRow.dataset.taskId : "",
+    //     completed
+    //   })
+    // });
 
 
 
@@ -70,6 +70,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Save active task
       localStorage.setItem("activeTaskId", nextRow.dataset.taskId);
     }
+
+    const completed = [...document.querySelectorAll('.task-row[data-status="complete"]')]
+      .map(row => row.dataset.taskId);
+
+    fetch('https://adoazure-github-io.onrender.com/api/active-task', {   
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        activeTaskId: nextRow ? nextRow.dataset.taskId : "",
+        completed
+      })
+    });
 
     updateActiveButtonPosition();
   });
